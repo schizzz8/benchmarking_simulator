@@ -15,6 +15,9 @@ from cv_bridge import CvBridge, CvBridgeError
 import message_filters
 from sensor_msgs.msg import Image
 
+import image_net_trainer as net
+
+
 class image_subscriber:
 
   def __init__(self):
@@ -52,7 +55,7 @@ class image_subscriber:
     roi=image[result[3]:result[4],result[5]:result[6]]
     #cv2.imshow("Image window",roi)
     #cv2.waitKey(30)
-    rospy.loginfo("roi image size: %s",str(roi.shape))
+    #rospy.loginfo("roi image size: %s",str(roi.shape))
     
     max_depth=np.amax(roi)
     #rospy.loginfo("max depth: %d",max_depth)
@@ -67,6 +70,7 @@ class image_subscriber:
 def main(args):
   rospy.init_node('image_subscriber', anonymous=True)
   im_sub = image_subscriber()
+  rospy.loginfo("Starting image_subcriber node")
   try:
     rospy.spin()
   except KeyboardInterrupt:
